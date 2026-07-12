@@ -1,0 +1,49 @@
+/* ---- the three rules, as generous ledger blocks ---- */
+.method-gates { margin-top: 6px; }
+.method-gate {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 30px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.method-gates .method-gate:last-child { border-bottom: none; }
+
+.method-index {
+  flex: 0 0 auto;
+  font-size: 38px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--brand);
+  padding-top: 3px;
+}
+.method-gate-name { font-weight: 600; font-size: 16.5px; margin-bottom: 6px; }
+
+/* ---- legend card ---- */
+.method-legend-wrap { margin-top: 10px; }
+.method-legend { padding: 28px 32px 6px; }
+.method-legend h3 { margin-top: 0; }
+
+.method-legend-row {
+  display: grid;
+  grid-template-columns: 108px 1fr;
+  gap: 8px 16px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.method-legend-row:last-child { border-bottom: none; }
+.method-legend-text { font-size: 14.5px; }
+
+/* pills stay hidden until the card reveals, then pop in one by one */
+.method-legend .status { opacity: 0; transform: scale(0); }
+.reveal.in .method-legend-row:nth-child(1) .status { animation: tick-pop 0.4s var(--ease-out) 0.1s both; }
+.reveal.in .method-legend-row:nth-child(2) .status { animation: tick-pop 0.4s var(--ease-out) 0.24s both; }
+.reveal.in .method-legend-row:nth-child(3) .status { animation: tick-pop 0.4s var(--ease-out) 0.38s both; }
+.reveal.in .method-legend-row:nth-child(4) .status { animation: tick-pop 0.4s var(--ease-out) 0.52s both; }
+
+@media (max-width: 560px) {
+  .method-index { font-size: 30px; }
+  .method-legend-row { grid-template-columns: 1fr; gap: 4px; }
+}

@@ -1,0 +1,45 @@
+/* engagement cards — a pair of ledger entries in the content column */
+article.engagement {
+  padding: 30px 30px 26px;
+  margin-top: 26px;
+  box-shadow: none;
+  transition: transform 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out);
+}
+article.engagement:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.eng-no {
+  display: inline-block;
+  position: relative;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding-bottom: 7px;
+  margin-bottom: 10px;
+}
+.eng-no::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 20px;
+  background: var(--brand);
+  transition: width 0.32s var(--ease-out);
+}
+article.engagement:hover .eng-no::after { width: 100%; }
+
+.engagement h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 23px;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+.eng-sub {
+  margin: 0 0 16px;
+  font-size: 15.5px;
+  max-width: 56ch;
+}

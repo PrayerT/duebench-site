@@ -1,0 +1,58 @@
+/* closing signature card — inverted tone, no rail, no divider from Faq above */
+#contact { border-top: none; padding-top: 0; }
+
+.contact-card {
+  position: relative;
+  background: var(--tooltip-bg);
+  color: var(--tooltip-fg);
+  border: none;
+  border-radius: 14px;
+  padding: 52px 48px;
+  overflow: hidden;
+}
+.contact-card .kicker { color: color-mix(in srgb, var(--tooltip-fg) 65%, transparent); }
+.contact-card p { color: color-mix(in srgb, var(--tooltip-fg) 84%, transparent); }
+
+/* decorative approval stamp — pops once the card reveals */
+.contact-badge {
+  position: absolute;
+  top: 30px;
+  right: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--brand);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--brand) 18%, transparent);
+  color: var(--brand);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0;
+  transform: scale(0);
+}
+.reveal.in .contact-badge {
+  animation: tick-pop 0.5s var(--ease-out) 0.3s both;
+}
+
+.contact-addr {
+  display: inline-block;
+  margin-top: 26px;
+  font-family: var(--font-mono);
+  font-size: 19px;
+  text-decoration: none;
+  color: var(--tooltip-fg);
+  border-bottom: 1px solid color-mix(in srgb, var(--tooltip-fg) 38%, transparent);
+  padding-bottom: 4px;
+  transition: border-color 0.2s var(--ease-out);
+}
+.contact-addr:hover, .contact-addr:focus-visible {
+  border-bottom-color: var(--tooltip-fg);
+}
+
+@media (max-width: 600px) {
+  .contact-card { padding: 40px 28px; }
+  .contact-badge { top: 22px; right: 22px; width: 28px; height: 28px; font-size: 14px; }
+}

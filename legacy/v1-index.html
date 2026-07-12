@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DueBench — Verified lead lists & code trust audits</title>
+<meta name="description" content="DueBench is an independent verification desk: hand-verified B2B lead lists and business-logic-aware code audits for SaaS founders and micro-SaaS buyers. Every deliverable arrives with its evidence attached.">
+<meta property="og:title" content="DueBench — We show our work.">
+<meta property="og:description" content="Hand-verified lead lists and code trust audits. Every claim checked, every source shown.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://duebench.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231A2332'/%3E%3Cpath d='M18 34 L28 44 L46 22' stroke='%23FAFAF7' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF7;
+  --ink:#1A2332;
+  --muted:#5C6470;
+  --rule:#DCDED6;
+  --tick:#1E7A46;
+  --tick-bg:#EAF3ED;
+  --flag:#A85B2B;
+  --flag-bg:#F7EFE7;
+  color-scheme: light;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--tick-bg)}
+a{color:inherit}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+
+/* ---------- page frame: content column + evidence rail ---------- */
+.sheet{max-width:1060px;margin:0 auto;padding:0 24px}
+.row{display:grid;grid-template-columns:minmax(0,640px) 1fr;gap:56px;align-items:start}
+.rail{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:12.5px;line-height:1.6;color:var(--muted);
+  border-left:1px solid var(--rule);
+  padding-left:18px;
+  position:sticky;top:32px;
+}
+.rail .tag{color:var(--tick);font-weight:500}
+@media (max-width:880px){
+  .row{grid-template-columns:1fr;gap:20px}
+  .rail{position:static;border-left:2px solid var(--rule)}
+}
+
+/* ---------- header ---------- */
+header{border-bottom:1px solid var(--rule)}
+.masthead{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:22px 0;
+}
+.wordmark{font-family:'Newsreader',serif;font-weight:600;font-size:21px;letter-spacing:-0.01em;text-decoration:none}
+.wordmark .dot{color:var(--tick)}
+nav a{
+  font-size:13.5px;color:var(--muted);text-decoration:none;margin-left:22px;
+}
+nav a:hover,nav a:focus-visible{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+@media (max-width:560px){
+  .masthead{flex-direction:column;align-items:flex-start;gap:8px;padding:16px 0}
+  nav a{margin-left:0;margin-right:16px}
+}
+
+/* ---------- hero ---------- */
+.hero{padding:88px 0 72px}
+.eyebrow{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:26px;
+}
+h1{
+  font-family:'Newsreader',serif;font-weight:500;
+  font-size:clamp(40px,6.5vw,64px);
+  line-height:1.06;letter-spacing:-0.022em;
+  margin-bottom:28px;
+}
+.hero p.lede{font-size:18.5px;line-height:1.6;color:var(--ink);max-width:56ch}
+.hero p.lede + p.lede{margin-top:14px;color:var(--muted);font-size:16.5px}
+
+/* ---------- audit tick marks (the signature) ---------- */
+.tick{
+  display:inline-flex;align-items:center;justify-content:center;
+  position:relative;vertical-align:super;
+  width:19px;height:19px;margin-left:2px;
+  border:1px solid var(--tick);border-radius:50%;
+  background:var(--tick-bg);color:var(--tick);
+  font-size:11px;font-weight:600;line-height:1;
+  cursor:help;font-family:'IBM Plex Mono',monospace;
+  border-style:solid;padding:0;
+}
+.tick:focus-visible{outline:2px solid var(--tick);outline-offset:2px}
+.tick .note{
+  position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
+  width:min(300px,80vw);
+  background:var(--ink);color:var(--paper);
+  font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.55;font-weight:400;
+  text-align:left;padding:10px 12px;border-radius:6px;
+  opacity:0;visibility:hidden;transition:opacity .15s ease;
+  z-index:10;pointer-events:none;
+}
+.tick .note::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:var(--ink);
+}
+.tick:hover .note,.tick:focus .note,.tick:focus-visible .note{opacity:1;visibility:visible}
+
+/* ---------- sections ---------- */
+section{padding:64px 0;border-top:1px solid var(--rule)}
+.kicker{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:14px;
+}
+h2{
+  font-family:'Newsreader',serif;font-weight:500;
+  font-size:clamp(28px,4vw,38px);letter-spacing:-0.015em;line-height:1.15;
+  margin-bottom:18px;
+}
+h3{font-size:17px;font-weight:600;margin:26px 0 8px}
+section p{max-width:60ch;color:var(--ink)}
+section p+p{margin-top:12px}
+.muted{color:var(--muted)}
+ul.plain{list-style:none;max-width:60ch}
+ul.plain li{padding:10px 0;border-bottom:1px dashed var(--rule);display:flex;gap:12px;align-items:baseline}
+ul.plain li:last-child{border-bottom:none}
+ul.plain li::before{content:'—';color:var(--tick);flex:0 0 auto}
+
+/* engagement cards as ledger entries */
+.engagement{
+  border:1px solid var(--rule);border-radius:10px;
+  padding:30px 30px 26px;margin-top:26px;background:#fff;
+}
+.engagement .no{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);
+  letter-spacing:0.1em;margin-bottom:10px;display:block;
+}
+.engagement h3{margin-top:0;font-family:'Newsreader',serif;font-weight:600;font-size:23px;letter-spacing:-0.01em}
+.engagement p.sub{color:var(--muted);margin:6px 0 16px;font-size:15.5px}
+
+/* pricing table */
+table{border-collapse:collapse;width:100%;margin-top:18px;font-size:15px}
+th{
+  text-align:left;font-family:'IBM Plex Mono',monospace;font-weight:500;
+  font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);
+  padding:0 14px 10px 0;border-bottom:1px solid var(--ink);
+}
+td{padding:13px 14px 13px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+td.price{font-family:'IBM Plex Mono',monospace;font-weight:500;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+
+/* workpaper sample */
+.workpaper{
+  background:#fff;border:1px solid var(--rule);border-radius:10px;
+  margin-top:26px;overflow-x:auto;
+}
+.workpaper .wp-head{
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:14px 20px;border-bottom:1px solid var(--rule);
+  font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);
+}
+.workpaper .wp-head .stamp{color:var(--flag)}
+.workpaper table{margin:0;font-size:13.5px;min-width:640px}
+.workpaper th{padding:12px 16px;border-bottom:1px solid var(--rule)}
+.workpaper td{padding:12px 16px;border-bottom:1px solid var(--rule)}
+.workpaper tr:last-child td{border-bottom:none}
+.status{
+  font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;
+  padding:2px 8px;border-radius:99px;white-space:nowrap;
+}
+.status.ok{background:var(--tick-bg);color:var(--tick)}
+.status.flag{background:var(--flag-bg);color:var(--flag)}
+
+/* legend */
+.legend{margin-top:26px;border:1px solid var(--rule);border-radius:10px;background:#fff;padding:22px 26px;max-width:640px}
+.legend dl{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;font-size:14.5px}
+.legend dt{font-family:'IBM Plex Mono',monospace;color:var(--tick);font-weight:500;white-space:nowrap}
+.legend dt.f{color:var(--flag)}
+.legend dd{color:var(--muted)}
+
+/* FAQ */
+details{border-bottom:1px solid var(--rule);max-width:640px}
+details summary{
+  cursor:pointer;padding:18px 0;font-weight:600;font-size:16px;list-style:none;
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:'+';font-family:'IBM Plex Mono',monospace;color:var(--muted)}
+details[open] summary::after{content:'–'}
+details div{padding:0 0 18px;max-width:56ch;color:var(--muted)}
+details div p+p{margin-top:10px}
+
+/* contact */
+.contact-card{
+  background:var(--ink);color:var(--paper);border-radius:12px;
+  padding:40px 36px;margin-top:26px;
+}
+.contact-card h2{color:var(--paper);margin-bottom:12px}
+.contact-card p{color:#C4CAD4;max-width:56ch}
+.contact-card .addr{
+  display:inline-block;margin-top:20px;
+  font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--paper);
+  text-decoration:none;border-bottom:1px solid rgba(250,250,247,.4);padding-bottom:2px;
+}
+.contact-card .addr:hover,.contact-card .addr:focus-visible{border-bottom-color:var(--paper)}
+
+footer{padding:34px 0 44px;font-size:13px;color:var(--muted)}
+footer .sheet{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="sheet masthead">
+    <a class="wordmark" href="/">DueBench<span class="dot">.</span></a>
+    <nav aria-label="Sections">
+      <a href="#engagements">Engagements</a>
+      <a href="#method">Method</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="sheet">
+
+    <div class="row hero">
+      <div>
+        <p class="eyebrow">DueBench · Independent verification desk</p>
+        <h1>We show our work.</h1>
+        <p class="lede">DueBench builds hand-verified B2B lead lists and runs business-logic-aware code audits for SaaS founders. Every deliverable arrives with its evidence attached<button class="tick" type="button" aria-label="How this claim is verified">✓<span class="note">Each account row and audit finding ships with a source URL, a check date, and the method used. See Method below.</span></button> — a source for every claim, a flag for anything we could not confirm.</p>
+        <p class="lede">Small by design. One desk, fully async, no account managers.</p>
+      </div>
+      <aside class="rail" aria-label="About the annotations on this page">
+        <p><span class="tag">✓ tick marks</span> on this page work like audit tick marks on a workpaper: hover or tap one and it tells you how the claim next to it was checked.</p>
+        <p style="margin-top:14px">No tick, no claim — that is the whole practice.</p>
+      </aside>
+    </div>
+
+    <section id="engagements">
+      <div class="row">
+        <div>
+          <p class="kicker">Engagements</p>
+          <h2>Two ways to buy confidence</h2>
+
+          <article class="engagement">
+            <span class="no">ENGAGEMENT 01</span>
+            <h3>Verified lead lists</h3>
+            <p class="sub">A list your outbound can trust on day one — built by hand, not exported from a database.</p>
+            <ul class="plain">
+              <li>Best-fit accounts researched one at a time, each with a source URL and a ship-date liveness check<button class="tick" type="button" aria-label="How this claim is verified">✓<span class="note">Hiring pages, funding notes and product claims are re-checked the day the list ships. Stale hooks are cut, not shipped.</span></button></li>
+              <li>Named decision-makers with verified addresses — catch-all domains are labeled, never sold as verified<button class="tick" type="button" aria-label="How this claim is verified">✓<span class="note">SMTP-level address verification where the mail server answers honestly; where it doesn't, the row is flagged CATCHALL or BLOCKED and disclosed as such.</span></button></li>
+              <li>A personalized first line per account, grounded in something true about them</li>
+              <li>A send-it-yourself sequence — you keep the send button, we never email on your behalf</li>
+            </ul>
+          </article>
+
+          <article class="engagement">
+            <span class="no">ENGAGEMENT 02</span>
+            <h3>Code trust audit</h3>
+            <p class="sub">For founders who shipped fast with AI tools — and buyers about to wire five figures for a micro-SaaS.</p>
+            <ul class="plain">
+              <li>Business-logic-aware security review, not a scanner printout</li>
+              <li>Findings with exact file and line, a proof, and a concrete fix</li>
+              <li>An executive summary a non-security founder can act on, plus a fix-this-week top list</li>
+              <li>One retest after you fix, included on Full Audit and M&amp;A tiers</li>
+            </ul>
+          </article>
+        </div>
+        <aside class="rail">
+          <p><span class="tag">Why two services?</span> Same discipline, two moments: verifying who to sell to, and verifying what you ship or buy. Both are due diligence — hence the name.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="method">
+      <div class="row">
+        <div>
+          <p class="kicker">Method</p>
+          <h2>Three gates before anything ships</h2>
+          <p><strong>Gate 1 — Sourced.</strong> Every factual claim in a deliverable needs a source we can show you. A claim without a source is cut, no matter how plausible it sounds.</p>
+          <p><strong>Gate 2 — Live.</strong> Evidence goes stale fast: roles get filled, pages get taken down. Everything time-sensitive is re-verified on the day of delivery, not the day of research.</p>
+          <p><strong>Gate 3 — Disclosed.</strong> Some things cannot be verified from the outside. Those ship with a flag and a note that says exactly what we could and couldn't confirm — you will never have to guess which rows are solid.</p>
+
+          <div class="legend" role="table" aria-label="Tick mark legend">
+            <dl>
+              <dt>VALID</dt><dd>Confirmed at the source (e.g. mail server accepted the exact address)</dd>
+              <dt>LIVE</dt><dd>Re-checked on ship date — the hook, role or page is still current</dd>
+              <dt class="f">CATCHALL</dt><dd>Domain accepts all mail; the address is format-inferred and flagged</dd>
+              <dt class="f">UNVERIFIED</dt><dd>Could not be confirmed from outside; disclosed, never counted as verified</dd>
+            </dl>
+          </div>
+        </div>
+        <aside class="rail">
+          <p><span class="tag">The honest limit:</span> outside verification has edges — some mail servers refuse probes, some claims live behind logins. Our rule is simple: the flag ships with the row. We would rather you see UNVERIFIED than believe a guess.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="sample">
+      <div class="row">
+        <div>
+          <p class="kicker">Sample</p>
+          <h2>What a workpaper row looks like</h2>
+          <p class="muted">Illustrative rows — the companies below are fictional, the format and checks are exactly what you receive.</p>
+
+          <div class="workpaper">
+            <div class="wp-head">
+              <span>DUEBENCH · LEAD LIST WORKPAPER — EXCERPT</span>
+              <span class="stamp">SPECIMEN</span>
+            </div>
+            <table>
+              <thead>
+                <tr><th>Account</th><th>Contact</th><th>Address status</th><th>First line hook · source</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Northgate Payroll<br><span class="mono muted" style="font-size:11.5px">SaaS · 40 ppl</span></td>
+                  <td>M. Reyes<br><span class="mono muted" style="font-size:11.5px">Head of RevOps</span></td>
+                  <td><span class="status ok">VALID · SMTP 2026-07-12</span></td>
+                  <td>Hiring first AE (careers page, checked ship-date)<br><span class="mono muted" style="font-size:11.5px">src: careers URL · LIVE</span></td>
+                </tr>
+                <tr>
+                  <td>Harbor&amp;Ledger<br><span class="mono muted" style="font-size:11.5px">Fintech API · 25 ppl</span></td>
+                  <td>D. Osei<br><span class="mono muted" style="font-size:11.5px">Co-founder</span></td>
+                  <td><span class="status flag">CATCHALL · disclosed</span></td>
+                  <td>SOC 2 in progress per trust page<br><span class="mono muted" style="font-size:11.5px">src: trust-center URL · LIVE</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <aside class="rail">
+          <p><span class="tag">Read the second row:</span> that CATCHALL flag is the product. A database export would have sold you that address as "verified" — we tell you what it actually is and how to warm into it.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="row">
+        <div>
+          <p class="kicker">Pricing</p>
+          <h2>Flat fees, quoted before we start</h2>
+
+          <h3>Code trust audit</h3>
+          <table>
+            <thead><tr><th>Tier</th><th>Scope</th><th style="text-align:right">Fee</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Spot Check</strong><br><span class="muted" style="font-size:13.5px">2 business days</span></td><td>The highest-risk surfaces of one app, top findings with fixes</td><td class="price" style="text-align:right">$350</td></tr>
+              <tr><td><strong>Full Audit</strong><br><span class="muted" style="font-size:13.5px">3–4 business days</span></td><td>Full review with prioritized roadmap and one retest after fixes</td><td class="price" style="text-align:right">$750</td></tr>
+              <tr><td><strong>M&amp;A Due Diligence</strong><br><span class="muted" style="font-size:13.5px">4–5 business days</span></td><td>Buy-side review: security, maintainability, AI-code fingerprint, handover readiness</td><td class="price" style="text-align:right">$1,200</td></tr>
+            </tbody>
+          </table>
+
+          <h3 style="margin-top:34px">Verified lead lists</h3>
+          <p>Quoted flat per engagement, by list size and verification depth. While we collect our first public case studies, pilot terms are deliberately generous: a <strong>free 10-account sample</strong> for a short testimonial if it proves useful<button class="tick" type="button" aria-label="How this claim is verified">✓<span class="note">Genuinely free: no signature, no card. If the sample isn't useful, you owe nothing — including the testimonial.</span></button>.</p>
+        </div>
+        <aside class="rail">
+          <p><span class="tag">Why so direct about pilot terms?</span> A new practice earns trust with shown work, not claimed logos. We'd rather trade a sample for a sentence of honest feedback than pretend to a track record we haven't published yet.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="answers">
+      <div class="row">
+        <div>
+          <p class="kicker">Straight answers</p>
+          <h2>What buyers usually ask</h2>
+
+          <details>
+            <summary>Who am I actually working with?</summary>
+            <div><p>A small independent practice — one accountable desk, async-first. You get the person who does the work, not an account manager. Modern research tooling is part of the bench; every deliverable is verified and signed off by hand before it ships.</p></div>
+          </details>
+          <details>
+            <summary>Do you send cold email for clients?</summary>
+            <div><p>No, deliberately. You keep the send button, your domain reputation, and final say on every word. We deliver the verified list, the personalization, and a sequence you run yourself — with a setup SOP for warm-up, daily limits and reply triage.</p></div>
+          </details>
+          <details>
+            <summary>Do you guarantee replies or a "safe" audit?</summary>
+            <div><p>No. We guarantee the work is real: addresses verified or flagged, claims sourced, findings reproducible. Reply rates are quoted as industry ranges, never promises, and an audit reduces risk — it cannot certify the absence of all bugs. Anyone promising otherwise is selling you a guess.</p></div>
+          </details>
+          <details>
+            <summary>How do we start?</summary>
+            <div><p>Reply to the note that brought you here, or write to the address below with one line about what you need. Lead lists start with a free 10-account sample; audits start with a short scoping call or an async questionnaire — your pick.</p></div>
+          </details>
+        </div>
+        <aside class="rail">
+          <p><span class="tag">House rule:</span> if the honest answer to a buyer's question costs us the deal, the answer doesn't change. It's cheaper to lose a deal than to owe an apology.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="contact" style="border-top:none;padding-top:0">
+      <div class="contact-card">
+        <p class="kicker" style="color:#8A93A3">Contact</p>
+        <h2>Send the first line</h2>
+        <p>One sentence about what you need is enough — a buyer segment for a sample list, or a repo you want looked at. Replies within one business day.</p>
+        <a class="addr" href="mailto:hello@duebench.com">hello@duebench.com</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="sheet">
+    <span>© 2026 DueBench · duebench.com</span>
+    <span>This page annotates its own claims — hover any <span style="color:var(--tick)">✓</span>.</span>
+  </div>
+</footer>
+
+</body>
+</html>
