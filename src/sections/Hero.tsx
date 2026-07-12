@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useI18n } from '../i18n'
 import Tick from '../components/Tick'
 import Reveal from '../components/Reveal'
+import { GuillocheRosette } from '../components/Guilloche'
 import './Hero.css'
 
 type RowState = 'idle' | 'checking' | 'done'
@@ -123,6 +124,7 @@ export default function Hero() {
           </Reveal>
         </div>
         <Reveal delay={300} className="hero-feed-wrap">
+          <GuillocheRosette className="hero-rosette" />
           <VerificationFeed />
         </Reveal>
       </div>

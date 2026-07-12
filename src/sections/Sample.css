@@ -2,6 +2,7 @@
 .workpaper { margin-top: 28px; overflow: hidden; }
 
 .wp-head {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,6 +13,18 @@
   letter-spacing: 0.06em;
   color: var(--muted);
   border-bottom: 1px solid var(--rule);
+}
+.wp-head > span { position: relative; }
+
+/* engraved security band under the workpaper header */
+.wp-guilloche {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--ink);
+  opacity: 0.09;
+  pointer-events: none;
 }
 
 /* stamp lands after the paper does */

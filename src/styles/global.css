@@ -69,6 +69,23 @@ body {
   overflow-x: clip;
 }
 
+/* handmade-paper grain over the whole page — neutral mid-gray tile,
+   overlay blend keeps it brightness-neutral in both themes */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('/decor/grain.webp') repeat;
+  background-size: 512px 512px;
+  mix-blend-mode: overlay;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 1;
+}
+@media (prefers-color-scheme: dark) {
+  body::before { opacity: 0.15; }
+}
+
 ::selection { background: var(--brand-soft); }
 a { color: inherit; }
 .mono { font-family: var(--font-mono); }

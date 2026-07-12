@@ -1,5 +1,6 @@
 import { useI18n } from '../i18n'
 import Reveal from '../components/Reveal'
+import { GuillocheBand } from '../components/Guilloche'
 import splitRailNote from '../lib/splitRailNote'
 import './Sample.css'
 
@@ -23,6 +24,7 @@ export default function Sample() {
             <Reveal delay={160}>
               <div className="workpaper card">
                 <div className="wp-head mono">
+                  <GuillocheBand className="wp-guilloche" />
                   <span>{s.wpTitle}</span>
                   <span className="stamp wp-stamp">{s.specimen}</span>
                 </div>

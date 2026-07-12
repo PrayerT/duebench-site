@@ -10,6 +10,7 @@ export default function Contact() {
       <div className="sheet">
         <Reveal>
           <div className="card contact-card">
+            <span className="contact-seal" aria-hidden="true" />
             <span className="contact-badge" aria-hidden="true">✓</span>
             <p className="kicker">{t.contact.kicker}</p>
             <h2>{t.contact.title}</h2>

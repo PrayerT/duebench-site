@@ -13,6 +13,23 @@
 .contact-card .kicker { color: color-mix(in srgb, var(--tooltip-fg) 65%, transparent); }
 .contact-card p { color: color-mix(in srgb, var(--tooltip-fg) 84%, transparent); }
 
+/* engraved laurel seal watermark, half-bleeding off the corner */
+.contact-seal {
+  position: absolute;
+  right: -46px;
+  bottom: -52px;
+  width: 240px;
+  height: 240px;
+  background: currentColor;
+  opacity: 0.13;
+  -webkit-mask: url('/decor/seal.png') center / contain no-repeat;
+  mask: url('/decor/seal.png') center / contain no-repeat;
+  pointer-events: none;
+}
+@media (max-width: 600px) {
+  .contact-seal { width: 170px; height: 170px; right: -36px; bottom: -40px; }
+}
+
 /* decorative approval stamp — pops once the card reveals */
 .contact-badge {
   position: absolute;
