@@ -16,6 +16,86 @@
     <meta name="twitter:image" content="https://duebench.com/og.png" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAF8F2" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F151E" />
+    <link rel="canonical" href="https://duebench.com/" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://duebench.com/#organization",
+          "name": "DueBench",
+          "url": "https://duebench.com/",
+          "email": "hello@duebench.com",
+          "slogan": "We show our work.",
+          "description": "Independent verification desk for software founders: hand-verified B2B lead lists and plain-English code reviews. Every deliverable ships with its proof — source link, check date, and method — and anything that can't be proven is flagged, not guessed.",
+          "logo": "https://duebench.com/og.png",
+          "knowsAbout": ["B2B lead research", "email verification", "cold outreach preparation", "source code review", "application security review", "technical due diligence"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://duebench.com/#website",
+          "url": "https://duebench.com/",
+          "name": "DueBench",
+          "publisher": { "@id": "https://duebench.com/#organization" },
+          "inLanguage": ["en", "zh", "es", "de", "ja", "fr"]
+        },
+        {
+          "@type": "Service",
+          "@id": "https://duebench.com/#lead-lists",
+          "name": "Verified B2B lead lists",
+          "serviceType": "B2B lead list research and email verification",
+          "provider": { "@id": "https://duebench.com/#organization" },
+          "url": "https://duebench.com/",
+          "description": "Hand-researched lead lists: every company checked one by one with a source link and a same-day freshness check; every email verified against the mail server or honestly flagged (VALID, LIVE, CATCHALL, UNVERIFIED); a personalised opening line per company. Flat fee quoted per project; pilot terms include a free 10-lead sample in exchange for a short testimonial."
+        },
+        {
+          "@type": "Service",
+          "@id": "https://duebench.com/#code-checks",
+          "name": "Code checks in plain English",
+          "serviceType": "Source code review and technical due diligence",
+          "provider": { "@id": "https://duebench.com/#organization" },
+          "url": "https://duebench.com/",
+          "description": "Manual code review for founders who built fast with AI tools, and for buyers acquiring an app. Every finding shows the exact file and line, why it matters, and how to fix it — summarised so you can act without a security background.",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Code check tiers",
+            "itemListElement": [
+              { "@type": "Offer", "name": "Spot Check", "description": "The riskiest parts of one app, top findings with fixes — 2 business days", "price": "350", "priceCurrency": "USD" },
+              { "@type": "Offer", "name": "Full Audit", "description": "Full review, a prioritised fix list, and one free re-check after you fix — 3–4 business days", "price": "750", "priceCurrency": "USD" },
+              { "@type": "Offer", "name": "Buy-side Check", "description": "Security, code health and handover risks checked before you buy an app — 4–5 business days", "price": "1200", "priceCurrency": "USD" }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://duebench.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Who am I actually working with?",
+              "acceptedAnswer": { "@type": "Answer", "text": "A small independent practice — one accountable desk, async-first. You talk to the person doing the work, not an account manager. Modern research tooling is part of the bench; every deliverable is verified and signed off by hand before it ships." }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you send the cold emails for me?",
+              "acceptedAnswer": { "@type": "Answer", "text": "No, on purpose. You keep the send button, your domain reputation, and final say on every word. We deliver the verified list, the opening lines, and a ready-to-run sequence — plus a simple setup guide for warm-up, daily limits and handling replies." }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you guarantee replies, or a “100% safe” audit?",
+              "acceptedAnswer": { "@type": "Answer", "text": "No — and be wary of anyone who does. What we guarantee is that the work is real: addresses verified or flagged, claims sourced, findings reproducible. Reply rates are quoted as honest industry ranges, and an audit reduces risk — it can't certify that zero bugs exist." }
+            },
+            {
+              "@type": "Question",
+              "name": "How do we start?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Write one line about what you need to hello@duebench.com — a target customer type for a sample list, or a repo you want looked at. Lists start with a free 10-lead sample; code checks start with a short call or a few async questions, your pick." }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231A2332'/%3E%3Cpath d='M18 34 L28 44 L46 22' stroke='%23FAFAF7' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,11 +104,9 @@
   <body>
     <div id="root"></div>
     <noscript>
-      <div style="max-width:640px;margin:80px auto;font-family:system-ui;padding:0 24px">
-        <h1>DueBench — We show our work.</h1>
-        <p>Hand-verified B2B lead lists and plain-English code reviews for software founders. Every claim we deliver comes with its proof attached.</p>
-        <p>Write to <a href="mailto:hello@duebench.com">hello@duebench.com</a> — replies within one business day.</p>
-      </div>
+      <!-- Full page content is prerendered into #root at build time; without JS,
+           just force the scroll-reveal wrappers visible so nothing stays hidden. -->
+      <style>.reveal{opacity:1 !important;transform:none !important}</style>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>

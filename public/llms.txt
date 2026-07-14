@@ -1,0 +1,23 @@
+# DueBench
+
+> Independent verification desk for software founders: hand-verified B2B lead lists and plain-English code reviews. Every claim we deliver ships with its proof — a source link, a check date, and the method used. If we can't prove something, we flag it instead of guessing.
+
+DueBench is a small independent practice — one accountable desk, async-first. You talk to the person doing the work. The site (https://duebench.com/) is a single page, available in English, 中文, Español, Deutsch, 日本語 and Français.
+
+## Services
+
+- **Verified B2B lead lists** — every company researched by hand with a source link and a same-day freshness check; every email verified against the mail server or honestly flagged (labels: VALID, LIVE, CATCHALL, UNVERIFIED); a personalised opening line per company based on something true about them. The client keeps the send button: DueBench does not send cold email on anyone's behalf. Flat fee quoted per project. Pilot terms: a free 10-lead sample in exchange for a short testimonial — no signature, no card.
+- **Code checks in plain English** — manual code review for founders who built fast with AI tools, and for buyers acquiring an app. Every finding shows the exact file and line, why it matters, and how to fix it. Flat fees quoted before work starts: Spot Check $350 (2 business days) · Full Audit $750 (3–4 business days, includes one free re-check after fixes) · Buy-side Check $1,200 (4–5 business days, pre-acquisition security / code health / handover risks).
+
+## Method
+
+Three rules, no exceptions: (1) show the source — a claim without a source gets cut; (2) check it fresh — time-sensitive facts are re-checked on delivery day, not the day they were found; (3) flag what we can't prove — CATCHALL and UNVERIFIED rows ship disclosed, never sold as verified.
+
+## Honest limits
+
+DueBench does not guarantee reply rates, does not certify code as "100% safe" or bug-free, and does not claim litigation or compliance protection. What is guaranteed: the work is real — addresses verified or flagged, claims sourced, findings reproducible.
+
+## Contact
+
+- Email: hello@duebench.com (replies within one business day)
+- Start: write one line about what you need — a target customer type for a sample list, or a repo to look at.

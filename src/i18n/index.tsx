@@ -22,6 +22,8 @@ export type LangCode = keyof typeof LOCALES
 const STORAGE_KEY = 'duebench-lang'
 
 function detectLang(): LangCode {
+  // Prerender (build-time SSR) has no browser APIs; the static snapshot is English.
+  if (typeof window === 'undefined') return 'en'
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved && saved in LOCALES) return saved as LangCode
