@@ -196,6 +196,10 @@ const en = {
         q: 'How do we start?',
         a: 'Write one line about what you need to the address below — a target customer type for a sample list, or a repo you want looked at. Lists start with a free 10-lead sample; code checks start with a short call or a few async questions, your pick.',
       },
+      {
+        q: 'Is a cold-outreach list even legal? What about GDPR?',
+        a: 'The lists are business contacts from public, linkable sources — careers pages, company sites, announcements — and every row shows exactly where it came from, which is what an honest legal basis is built on. The duty for the outreach itself sits with the sender, and rules differ by region (GDPR, PECR, CAN-SPAM), so we flag EU-based contacts and ship plain-language sending guidance with every list. We’re researchers, not your lawyers — for edge cases, ask yours.',
+      },
     ],
     railNote:
       'House rule: if the honest answer to a buyer’s question costs us the deal, the answer doesn’t change. It’s cheaper to lose a deal than to owe an apology.',
@@ -207,6 +211,13 @@ const en = {
     text:
       'One sentence about what you need is enough — a customer type for a sample list, or a repo you want checked. Replies within one business day.',
     email: 'hello@duebench.com',
+    mailSubject: 'Free 10-lead sample',
+    mailSubjectAudit: 'Code check — quick question',
+    mailBody:
+      'Hi DueBench,\n\nWhat I need: [ a free 10-lead sample — my target customer is: … ] or [ a code check on: … ]\n\nThanks,',
+    copyHint: 'No mail app on this device?',
+    copyBtn: 'Copy the address',
+    copied: 'Copied ✓',
   },
 
   footer: {

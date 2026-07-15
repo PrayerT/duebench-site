@@ -117,7 +117,10 @@ export default function Hero() {
               <a className="btn btn-primary" href="#contact">
                 {t.hero.ctaPrimary} <span className="arrow">→</span>
               </a>
-              <a className="btn btn-ghost" href="#pricing">
+              <a
+                className="btn btn-ghost"
+                href={`mailto:${t.contact.email}?subject=${encodeURIComponent(t.contact.mailSubjectAudit)}`}
+              >
                 {t.hero.ctaSecondary}
               </a>
             </div>

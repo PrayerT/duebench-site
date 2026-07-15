@@ -194,6 +194,10 @@ const de: Dict = {
         q: 'Wie fangen wir an?',
         a: 'Schreiben Sie eine Zeile an die Adresse unten, was Sie brauchen – einen Zielkundentyp für eine Beispielliste oder ein Repo, das Sie geprüft haben möchten. Listen starten mit einer kostenlosen 10-Lead-Probe; Code-Checks starten mit einem kurzen Anruf oder ein paar asynchronen Fragen – ganz wie Sie möchten.',
       },
+      {
+        q: 'Ist eine Kaltakquise-Liste überhaupt legal? Und die DSGVO?',
+        a: 'Die Listen bestehen aus geschäftlichen Kontakten aus öffentlichen, verlinkbaren Quellen – Karriereseiten, Firmenwebsites, Ankündigungen – und jede Zeile zeigt genau, woher sie stammt. Genau darauf baut eine ehrliche Rechtsgrundlage auf. Die Pflicht für den Versand selbst liegt beim Absender, und die Regeln unterscheiden sich je nach Region (DSGVO, PECR, CAN-SPAM). Deshalb markieren wir Kontakte mit Sitz in der EU und legen jeder Liste einen verständlichen Versandleitfaden bei. Wir sind Rechercheure, nicht Ihre Anwälte – bei Grenzfällen fragen Sie Ihre.',
+      },
     ],
     railNote:
       'Hausregel: Kostet die ehrliche Antwort auf eine Käuferfrage uns den Auftrag, ändert sich die Antwort nicht. Einen Auftrag zu verlieren ist billiger, als eine Entschuldigung zu schulden.',
@@ -205,6 +209,13 @@ const de: Dict = {
     text:
       'Ein Satz darüber, was Sie brauchen, reicht – ein Kundentyp für eine Beispielliste oder ein Repo, das geprüft werden soll. Antwort innerhalb eines Werktags.',
     email: 'hello@duebench.com',
+    mailSubject: 'Kostenlose 10-Lead-Probe',
+    mailSubjectAudit: 'Code-Check – kurze Frage',
+    mailBody:
+      'Hallo DueBench,\n\nwas ich brauche: [ eine kostenlose 10-Lead-Probe – mein Zielkunde ist: … ] oder [ einen Code-Check für: … ]\n\nDanke,',
+    copyHint: 'Keine Mail-App auf diesem Gerät?',
+    copyBtn: 'Adresse kopieren',
+    copied: 'Kopiert ✓',
   },
 
   footer: {

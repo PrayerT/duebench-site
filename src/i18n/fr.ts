@@ -194,6 +194,10 @@ const fr: Dict = {
         q: 'Comment commencer ?',
         a: 'Écrivez une ligne sur votre besoin à l’adresse ci-dessous — un type de client cible pour un échantillon de liste, ou un dépôt de code que vous voulez faire examiner. Les listes démarrent avec un échantillon gratuit de 10 prospects ; les audits de code démarrent par un court appel ou quelques questions en asynchrone, à votre choix.',
       },
+      {
+        q: 'Une liste de prospection à froid est-elle seulement légale ? Et le RGPD ?',
+        a: 'Les listes sont des contacts professionnels issus de sources publiques et vérifiables par lien — pages carrières, sites d’entreprise, annonces — et chaque ligne indique exactement d’où elle vient : c’est là-dessus que repose une base légale honnête. La responsabilité de l’envoi incombe à l’expéditeur, et les règles varient selon la région (RGPD, PECR, CAN-SPAM) ; nous signalons donc les contacts basés dans l’UE et joignons à chaque liste un guide d’envoi en langage clair. Nous sommes des chercheurs, pas vos avocats — pour les cas limites, consultez les vôtres.',
+      },
     ],
     railNote:
       'Règle de la maison : si la réponse honnête à la question d’un acheteur nous coûte le contrat, la réponse ne change pas. Il est moins coûteux de perdre un contrat que de devoir des excuses.',
@@ -205,6 +209,13 @@ const fr: Dict = {
     text:
       'Une phrase sur votre besoin suffit — un type de client pour un échantillon de liste, ou un dépôt de code à vérifier. Réponse sous un jour ouvré.',
     email: 'hello@duebench.com',
+    mailSubject: 'Échantillon gratuit de 10 prospects',
+    mailSubjectAudit: 'Audit de code — question rapide',
+    mailBody:
+      'Bonjour DueBench,\n\nMon besoin : [ un échantillon gratuit de 10 prospects — mon client cible : … ] ou [ un audit de code sur : … ]\n\nMerci,',
+    copyHint: 'Pas d’application mail sur cet appareil ?',
+    copyBtn: 'Copier l’adresse',
+    copied: 'Copié ✓',
   },
 
   footer: {

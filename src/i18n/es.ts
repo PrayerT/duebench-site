@@ -194,6 +194,10 @@ const es: Dict = {
         q: '¿Cómo empezamos?',
         a: 'Escribe una línea sobre lo que necesitas a la dirección de abajo: un tipo de cliente objetivo para una lista de muestra, o un repositorio que quieras que revisemos. Las listas empiezan con una muestra gratis de 10 contactos; las revisiones de código empiezan con una llamada breve o unas preguntas asíncronas, tú eliges.',
       },
+      {
+        q: '¿Es legal una lista de prospección en frío? ¿Y el RGPD?',
+        a: 'Las listas son contactos de empresa procedentes de fuentes públicas y enlazables — páginas de empleo, sitios corporativos, anuncios — y cada fila muestra exactamente de dónde salió, que es sobre lo que se construye una base legal honesta. La responsabilidad del envío recae en quien envía, y las normas varían según la región (RGPD, PECR, CAN-SPAM), así que señalamos los contactos de la UE e incluimos con cada lista una guía de envío en lenguaje claro. Somos investigadores, no tus abogados — para los casos dudosos, consulta al tuyo.',
+      },
     ],
     railNote:
       'Regla de la casa: si la respuesta honesta a la pregunta de un comprador nos cuesta el trato, la respuesta no cambia. Sale más barato perder un trato que deber una disculpa.',
@@ -205,6 +209,13 @@ const es: Dict = {
     text:
       'Con una frase sobre lo que necesitas basta: un tipo de cliente para una lista de muestra, o un repositorio que quieras que revisemos. Respondemos dentro de un día hábil.',
     email: 'hello@duebench.com',
+    mailSubject: 'Muestra gratis de 10 contactos',
+    mailSubjectAudit: 'Revisión de código — consulta rápida',
+    mailBody:
+      'Hola DueBench:\n\nLo que necesito: [ una muestra gratis de 10 contactos — mi cliente objetivo es: … ] o [ una revisión de código de: … ]\n\nGracias,',
+    copyHint: '¿Sin app de correo en este dispositivo?',
+    copyBtn: 'Copiar la dirección',
+    copied: 'Copiado ✓',
   },
 
   footer: {

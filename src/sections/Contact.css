@@ -69,6 +69,28 @@
   border-bottom-color: var(--tooltip-fg);
 }
 
+/* fallback for devices without a mail app — copy instead of mailto */
+.contact-copy {
+  margin-top: 14px;
+  font-size: 14px;
+}
+.contact-copy .muted { color: color-mix(in srgb, var(--tooltip-fg) 60%, transparent); }
+.contact-copy-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--tooltip-fg);
+  border-bottom: 1px dashed color-mix(in srgb, var(--tooltip-fg) 45%, transparent);
+  transition: border-color 0.2s var(--ease-out);
+}
+.contact-copy-btn:hover, .contact-copy-btn:focus-visible {
+  border-bottom-color: var(--tooltip-fg);
+}
+
 @media (max-width: 600px) {
   .contact-card { padding: 40px 28px; }
   .contact-badge { top: 22px; right: 22px; width: 28px; height: 28px; font-size: 14px; }
