@@ -17,6 +17,10 @@ Three rules, no exceptions: (1) show the source — a claim without a source get
 
 DueBench does not guarantee reply rates, does not certify code as "100% safe" or bug-free, and does not claim litigation or compliance protection. What is guaranteed: the work is real — addresses verified or flagged, claims sourced, findings reproducible.
 
+## Published samples
+
+- ADA / WCAG Findings Snapshot — sample teardown on a fictional storefront (https://duebench.com/ada-findings-snapshot/): 10 WCAG 2.2 findings showing what automated scanners catch (3), what needs manual review (6), and one hybrid; includes a free 15-minute self-check method. A methodology demonstration, not legal advice and not a priced service.
+
 ## Contact
 
 - Email: hello@duebench.com (replies within one business day)

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADA / WCAG Findings Snapshot — Sample Teardown (Fictional Specimen) | DueBench</title>
+  <meta name="description" content="A worked example of DueBench's accessibility findings methodology: 10 WCAG 2.2 findings on a fictional e-commerce storefront — what automated scanners catch, what they miss, and how to reproduce every check yourself for free." />
+  <meta property="og:title" content="ADA / WCAG Findings Snapshot — Sample Teardown" />
+  <meta property="og:description" content="10 WCAG 2.2 findings on a fictional storefront: 3 automated, 6 manual-only, 1 hybrid. A methodology demonstration — every check reproducible for free." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://duebench.com/ada-findings-snapshot/" />
+  <meta property="og:image" content="https://duebench.com/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAF8F2" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F151E" />
+  <link rel="canonical" href="https://duebench.com/ada-findings-snapshot/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231A2332'/%3E%3Cpath d='M18 34 L28 44 L46 22' stroke='%23FAFAF7' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "ADA / WCAG Findings Snapshot — Sample Teardown (Fictional Specimen)",
+    "description": "A worked example of an accessibility findings snapshot: 10 WCAG 2.2 findings on a fictional e-commerce storefront, showing what automated scanners catch and what requires manual review.",
+    "url": "https://duebench.com/ada-findings-snapshot/",
+    "datePublished": "2026-07-16",
+    "dateModified": "2026-07-16",
+    "author": { "@type": "Organization", "name": "DueBench", "url": "https://duebench.com/" },
+    "publisher": { "@type": "Organization", "name": "DueBench", "url": "https://duebench.com/" },
+    "isPartOf": { "@type": "WebSite", "name": "DueBench", "url": "https://duebench.com/" }
+  }
+  </script>
+  <style>
+    :root {
+      --paper: #FAF8F2; --card: #FFFFFF; --ink: #182236; --muted: #5B6373;
+      --rule: #E3E0D4; --rule-strong: #C9C5B4;
+      --brand: #0E8A50; --brand-strong: #0B6E40; --brand-soft: #E4F2E9;
+      --flag: #B05A1E; --flag-soft: #F8EEE1;
+      --shadow: 0 1px 2px rgba(24,34,54,.05), 0 8px 28px rgba(24,34,54,.07);
+      --header-bg: rgba(250,248,242,.88);
+      --font-display: 'Newsreader', Georgia, serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #0F151E; --card: #161E2A; --ink: #EAE7DD; --muted: #98A1B1;
+        --rule: #27303F; --rule-strong: #3A465C;
+        --brand: #41BF80; --brand-strong: #5ACD93; --brand-soft: rgba(65,191,128,.13);
+        --flag: #D9924F; --flag-soft: rgba(217,146,79,.13);
+        --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 28px rgba(0,0,0,.35);
+        --header-bg: rgba(15,21,30,.88);
+        color-scheme: dark;
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      background: var(--paper); color: var(--ink);
+      font-family: var(--font-body); font-size: 16px; line-height: 1.65;
+      -webkit-font-smoothing: antialiased; overflow-x: clip;
+    }
+    /* SPECIMEN watermark — tiled diagonal label so no screenshot of this page
+       can pass as a real client report */
+    body::after {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 5;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='300'%3E%3Ctext x='210' y='150' font-family='Inter,sans-serif' font-size='22' font-weight='600' fill='%23808080' fill-opacity='0.07' text-anchor='middle' transform='rotate(-27 210 150)'%3ESPECIMEN — FICTIONAL EXAMPLE%3C/text%3E%3C/svg%3E") repeat;
+    }
+    header.site {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--header-bg); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .site-inner {
+      max-width: 880px; margin: 0 auto; padding: 14px 20px;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .wordmark {
+      font-family: var(--font-display); font-weight: 600; font-size: 20px;
+      color: var(--ink); text-decoration: none;
+    }
+    .wordmark span { color: var(--brand); }
+    .specimen-chip {
+      margin-left: auto; font-family: var(--font-mono); font-size: 11.5px;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--flag); background: var(--flag-soft);
+      border: 1px solid var(--flag); border-radius: 999px; padding: 3px 10px;
+      white-space: nowrap;
+    }
+    main { max-width: 880px; margin: 0 auto; padding: 36px 20px 80px; }
+    .banner {
+      background: var(--flag-soft); border: 1px solid var(--flag);
+      border-radius: 10px; padding: 14px 18px; font-size: 14.5px; margin-bottom: 32px;
+    }
+    .banner strong { color: var(--flag); }
+    h1 {
+      font-family: var(--font-display); font-weight: 600; font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.15; margin-bottom: 10px;
+    }
+    .subtitle { color: var(--muted); font-size: 15px; margin-bottom: 28px; }
+    h2 {
+      font-family: var(--font-display); font-weight: 600; font-size: 26px;
+      margin: 44px 0 14px; padding-top: 10px; border-top: 1px solid var(--rule);
+    }
+    h3 { font-size: 18px; margin: 32px 0 10px; }
+    h3 .sc { display: block; font-family: var(--font-mono); font-size: 12.5px; font-weight: 500; color: var(--muted); margin-top: 4px; }
+    p { margin-bottom: 14px; }
+    p strong { font-weight: 600; }
+    a { color: var(--brand-strong); }
+    ul, ol { margin: 0 0 14px 24px; }
+    li { margin-bottom: 6px; }
+    blockquote {
+      border-left: 3px solid var(--rule-strong); padding: 4px 0 4px 16px;
+      color: var(--muted); margin-bottom: 16px; font-size: 15px;
+    }
+    .tablewrap { overflow-x: auto; margin-bottom: 18px; }
+    table {
+      border-collapse: collapse; width: 100%; font-size: 14.5px;
+      background: var(--card); border-radius: 10px; box-shadow: var(--shadow);
+    }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    th { font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+    tr:last-child td { border-bottom: none; }
+    pre {
+      background: var(--card); border: 1px solid var(--rule); border-radius: 10px;
+      padding: 14px 16px; overflow-x: auto; margin-bottom: 16px;
+      font-family: var(--font-mono); font-size: 13.5px; line-height: 1.55;
+    }
+    code { font-family: var(--font-mono); font-size: .92em; background: var(--brand-soft); border-radius: 4px; padding: 1px 5px; }
+    pre code { background: none; padding: 0; }
+    .meta-table td:first-child { font-weight: 600; white-space: nowrap; }
+    .note {
+      background: var(--card); border: 1px solid var(--rule); border-radius: 10px;
+      padding: 14px 18px; font-size: 14.5px; margin-bottom: 18px; box-shadow: var(--shadow);
+    }
+    footer.site {
+      border-top: 1px solid var(--rule); margin-top: 40px;
+      max-width: 880px; margin-left: auto; margin-right: auto;
+      padding: 28px 20px 48px; color: var(--muted); font-size: 14px;
+    }
+    footer.site a { color: var(--brand-strong); }
+    hr { border: none; border-top: 1px solid var(--rule); margin: 30px 0; }
+  </style>
+</head>
+<body>
+<header class="site">
+  <div class="site-inner">
+    <a class="wordmark" href="https://duebench.com/">Due<span>Bench</span></a>
+    <span class="specimen-chip">Specimen · fictional example</span>
+  </div>
+</header>
+<main>
+  <div class="banner">
+    <strong>This is a methodology demonstration, not a real audit.</strong>
+    "Millbrook Outfitters" is a fictional company invented for this document. Nothing below was
+    scraped or scanned from any real website; every markup snippet was written for this page to
+    illustrate a common, well-documented pattern. This document is not legal advice and does not
+    certify compliance with anything. See <a href="#scope">Scope &amp; limitations</a>.
+  </div>
+
+  <h1>ADA / WCAG Findings Snapshot — Sample Teardown</h1>
+  <p class="subtitle">A worked example of how DueBench documents accessibility findings: what an
+  automated scanner catches, what it misses, and how you can reproduce every check yourself —
+  free, in about 15 minutes. Published 2026-07-16.</p>
+
+  <div class="tablewrap"><table class="meta-table">
+    <tr><td>Specimen</td><td>"Millbrook Outfitters" — a <strong>fictional</strong> small e-commerce storefront (outdoor/apparel retail, ~30 SKUs, templated storefront + custom checkout). No such company is asserted to exist; any resemblance to a real business is coincidental.</td></tr>
+    <tr><td>Engagement type</td><td>Technical accessibility findings snapshot (static, source/markup-level) — <strong>not</strong> a live scan of any deployed system</td></tr>
+    <tr><td>Prepared by</td><td><a href="https://duebench.com/">DueBench</a> — Code Trust Audit</td></tr>
+    <tr><td>Status</td><td>Published sample / capability demonstration</td></tr>
+  </table></div>
+
+  <blockquote>
+    <strong>About this document.</strong> The defect patterns below are composites of the kind of thing
+    this methodology (axe-core + WAVE automated scan, plus manual keyboard/visual/code-level review)
+    most commonly surfaces on small-business retail sites — illustrated against representative markup
+    we wrote for this purpose. Every finding is independently reproducible by any reader against their
+    own site using the method described in each entry. This document is <strong>not legal advice</strong>, does
+    <strong>not</strong> certify ADA compliance or WCAG conformance, and makes <strong>no claim</strong> that fixing these
+    items eliminates legal risk. That distinction matters: a January 2025 FTC settlement (finalized
+    April 2025) required accessiBe, a large accessibility-overlay vendor, to pay <strong>$1,000,000</strong> over
+    deceptive claims that its automated product could make any website WCAG-compliant and keep it
+    compliant over time. We make no automated-compliance claim and no litigation-protection claim,
+    here or anywhere. See <a href="#scope">§8</a> for the full scope statement.
+  </blockquote>
+
+  <h2 id="why">0. Why this exists</h2>
+  <p>Our <a href="https://duebench.com/#pricing">Code Trust Audit</a> reviews source code for security
+  and "is-it-real" business-logic gaps at three fixed-fee tiers. ADA/WCAG defects are the same kind of
+  thing from a different angle: a <strong>verifiable, dated, file-and-rule-level technical finding</strong> that a
+  non-technical founder cannot see for themselves and cannot get a straight answer on from a linter
+  alone. This page is the proof-of-capability for that extension — it is <strong>not</strong> a separately priced
+  service yet (see <a href="#pricing-note">§9</a>). It exists so that anyone considering this kind of
+  review can see the exact shape of the deliverable first — not so we can claim readiness we don't
+  have.</p>
+
+  <h2 id="specimen">1. The specimen</h2>
+  <p>"Millbrook Outfitters" is a fictional mid-market storefront: a product listing/grid page, a
+  product detail page, a filter/sort sidebar, a "quick view" modal, and a multi-step checkout form.
+  This is a deliberately ordinary combination — the same page types present on a large share of
+  small-business retail sites, and the defect categories they host (low-contrast text, missing form
+  labels, unnamed controls, missing document language) are the ones that dominate WebAIM's annual
+  <em>Million</em> survey of one million home pages (most recent scan: February 2026). Nothing about this
+  specimen is drawn from a real company's code or content.</p>
+
+  <h2 id="summary">2. Executive summary</h2>
+  <p>The snapshot below documents <strong>10 findings</strong> across all four WCAG principles (Perceivable,
+  Operable, Understandable, Robust). None of this is exotic: every pattern here is common,
+  well-documented, and has a known fix. Of the 10:</p>
+  <ul>
+    <li><strong>3 are automatically detectable</strong> (axe-core / WAVE) — the kind of thing any free scanner catches in seconds.</li>
+    <li><strong>6 require a manual keyboard-only walkthrough or a visual/code judgment call</strong> — the kind of thing no automated scanner can reliably catch, because it requires understanding what the interface is trying to do, not just parsing its markup. One of them (F-07) actively <em>passes</em> the relevant automated check.</li>
+    <li><strong>1 is a hybrid</strong> — covered by an axe-core WCAG 2.2 rule that ships disabled by default, confirmed by manual measurement.</li>
+  </ul>
+  <p>That split is the point of this document as a capability demonstration: an automated scan alone
+  (the $0–60 end of the market) would hand Millbrook a report with 3 items on it and miss the other 7
+  entirely, including two of the three defects rated Critical below (F-05's modal trap, and F-07's
+  unlabeled checkout inputs — which <em>pass</em> automated label checks, because placeholder text is counted
+  toward the accessible name).</p>
+
+  <p><strong>Findings at a glance</strong></p>
+  <div class="tablewrap"><table>
+    <tr><th>Impact</th><th>Count</th></tr>
+    <tr><td>🔴 Critical</td><td>3</td></tr>
+    <tr><td>🟠 Serious</td><td>2</td></tr>
+    <tr><td>🟡 Moderate</td><td>3</td></tr>
+    <tr><td>⚪ Minor</td><td>2</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>10</strong></td></tr>
+  </table></div>
+
+  <p><strong>What "Critical" means here:</strong> it means a user relying on assistive technology (screen
+  reader, keyboard-only navigation) cannot complete a core task — add an item to cart, understand a
+  required form field, or exit a modal — using only that assistive technology. It does not mean "you
+  will be sued" or "this is illegal." Whether any specific gap creates legal exposure depends on
+  jurisdiction, applicable regulation, and case law, and is a question for a lawyer, not a code-review
+  vendor. See <a href="#scope">§8</a>.</p>
+
+  <h2 id="reading">3. How to read this snapshot</h2>
+  <p>Impact ratings use axe-core's four-level vocabulary (<code>minor</code> / <code>moderate</code> /
+  <code>serious</code> / <code>critical</code>) rather than a proprietary severity scale, and are then set by task
+  impact on <em>this</em> interface. Where our rating deliberately departs from axe's own default for a
+  rule, the finding says so inline (see F-09, F-10). WCAG SC references per finding follow this
+  methodology's mapping, which is sometimes broader than the single SC tag axe attaches to a rule
+  (axe tags <code>button-name</code> and <code>label</code> only to 4.1.2, for example); the underlying defect stands
+  either way.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Impact</th><th>Meaning</th></tr>
+    <tr><td>🔴 <strong>Critical</strong></td><td>Blocks a core task entirely for keyboard-only or screen-reader users.</td></tr>
+    <tr><td>🟠 <strong>Serious</strong></td><td>Major friction or a significant chance of failure completing the task.</td></tr>
+    <tr><td>🟡 <strong>Moderate</strong></td><td>Real barrier for some users; workarounds usually exist.</td></tr>
+    <tr><td>⚪ <strong>Minor</strong></td><td>Hygiene / best-practice gap; low individual impact, worth fixing opportunistically.</td></tr>
+  </table></div>
+  <p>WCAG references are to <strong>WCAG 2.2</strong> success-criterion numbers (2.2 kept the 2.1 numbering —
+  with one removal, 4.1.1 Parsing, now obsolete — and added nine new success criteria; one of them,
+  2.5.8 Target Size (Minimum), appears below). Level (A / AA) is noted per finding.</p>
+
+  <h2 id="table">4. Findings summary table</h2>
+  <div class="tablewrap"><table>
+    <tr><th>ID</th><th>Impact</th><th>Finding</th><th>WCAG SC</th><th>Level</th><th>Detectable by</th></tr>
+    <tr><td>F-01</td><td>🔴 Critical</td><td>Icon-only "add to cart" / nav controls with no accessible name</td><td>1.1.1, 4.1.2</td><td>A</td><td>Automated (axe: <code>button-name</code>)</td></tr>
+    <tr><td>F-02</td><td>🟠 Serious</td><td>Body/link text contrast below 4.5:1</td><td>1.4.3</td><td>AA</td><td>Automated (axe: <code>color-contrast</code>)</td></tr>
+    <tr><td>F-03</td><td>🟡 Moderate</td><td>Sale price / required-field shown by color alone</td><td>1.4.1</td><td>A</td><td>Manual only</td></tr>
+    <tr><td>F-04</td><td>🟠 Serious</td><td>Custom filter/sort control not operable by keyboard</td><td>2.1.1, 4.1.2</td><td>A</td><td>Manual only</td></tr>
+    <tr><td>F-05</td><td>🔴 Critical</td><td>"Quick view" modal is a keyboard/focus trap</td><td>2.1.2, 2.4.3</td><td>A</td><td>Manual only</td></tr>
+    <tr><td>F-06</td><td>🟡 Moderate</td><td>No skip-navigation link / no bypass mechanism</td><td>2.4.1</td><td>A</td><td>Manual (axe's <code>bypass</code> heuristic exists but is unreliable — see F-06)</td></tr>
+    <tr><td>F-07</td><td>🔴 Critical</td><td>Checkout inputs use placeholder text as the only label</td><td>1.3.1, 3.3.2</td><td>A</td><td>Manual (<em>passes</em> axe's <code>label</code> rule — placeholder is counted as the accessible name; see F-07)</td></tr>
+    <tr><td>F-08</td><td>⚪ Minor</td><td>Repeated non-descriptive link text ("Read more")</td><td>2.4.4</td><td>A</td><td>Manual only</td></tr>
+    <tr><td>F-09</td><td>🟡 Moderate</td><td>Icon-button touch targets below 24×24 CSS px</td><td>2.5.8</td><td>AA</td><td>Hybrid (axe WCAG 2.2 rule, off by default + manual measurement)</td></tr>
+    <tr><td>F-10</td><td>⚪ Minor</td><td>Page missing a declared language</td><td>3.1.1</td><td>A</td><td>Automated (axe: <code>html-has-lang</code>)</td></tr>
+  </table></div>
+
+  <h2 id="findings">5. Findings detail</h2>
+
+  <h3 id="f01">F-01 🔴 Icon-only controls with no accessible name
+    <span class="sc">WCAG 1.1.1 Non-text Content (A) · 4.1.2 Name, Role, Value (A)</span></h3>
+  <p><strong>The pattern.</strong> The product grid's "add to cart" and header's cart/search/menu controls are
+  icon-only <code>&lt;button&gt;</code> elements with no visible text, no <code>aria-label</code>, and no accessible name
+  exposed to the accessibility tree. Representative pattern (illustrative markup, not scraped source):</p>
+  <pre><code>&lt;button class="icon-btn cart-add" onclick="addToCart(sku)"&gt;
+  &lt;svg class="icon-cart-plus" aria-hidden="true"&gt;...&lt;/svg&gt;
+&lt;/button&gt;</code></pre>
+  <p><strong>Why it matters.</strong> A screen-reader user tabbing through the product grid hears "button,
+  button, button" with no way to tell which product each one adds, or that the icon in the header is
+  a cart at all. This is not a cosmetic gap — it blocks the store's one core conversion action for
+  anyone who cannot see the icon.</p>
+  <p><strong>How to verify.</strong> Run axe-core (browser extension or CI plugin) against the page — rule ID
+  <code>button-name</code> (and <code>aria-command-name</code> for ARIA-role buttons) fires immediately, no manual step
+  required. Confirm manually: turn on a screen reader (VoiceOver/NVDA), tab to the control, and
+  listen to what gets announced.</p>
+  <p><strong>Fix direction.</strong> Add a visible or <code>aria-label</code> accessible name that includes the product
+  name, e.g. <code>aria-label="Add Millbrook Trail Jacket to cart"</code>. Do not rely on a tooltip alone —
+  tooltips are not exposed to assistive tech by default.</p>
+
+  <h3 id="f02">F-02 🟠 Insufficient text contrast
+    <span class="sc">WCAG 1.4.3 Contrast (Minimum) (AA)</span></h3>
+  <p><strong>The pattern.</strong> Body copy and secondary links use a light gray (<code>#999999</code>) on white
+  (<code>#FFFFFF</code>) — a contrast ratio of roughly 2.85:1, below the 4.5:1 minimum for normal-size text
+  (3:1 would be the bar only for large/bold text, which this isn't). Representative pattern
+  (illustrative markup, not scraped source):</p>
+  <pre><code>.product-meta, .footer-links a { color: #999999; background: #ffffff; }</code></pre>
+  <p><strong>Why it matters.</strong> Low-vision users and anyone reading on a bright screen or in sunlight lose
+  this text entirely. This is one of the single most common findings in accessibility scans
+  generally — not because it is exotic, but because default gray design-system tokens are frequently
+  picked for aesthetics without a contrast check.</p>
+  <p><strong>How to verify.</strong> axe-core / WAVE both flag this automatically — rule ID
+  <code>color-contrast</code> — and both report the exact measured ratio against the exact threshold. No manual
+  judgment needed to detect it; manual judgment is only needed to confirm the "why" (is this large
+  text, is it decorative, etc).</p>
+  <p><strong>Fix direction.</strong> Darken to at least <code>#767676</code> on white (4.54:1) for normal text, or
+  increase size/weight to qualify for the 3:1 large-text threshold. Re-check with the same tool after
+  the change — this is the easiest class of fix to verify closes cleanly.</p>
+
+  <h3 id="f03">F-03 🟡 Information conveyed by color alone
+    <span class="sc">WCAG 1.4.1 Use of Color (A)</span></h3>
+  <p><strong>The pattern.</strong> Sale prices are shown only as red text with a strikethrough on the original
+  price; there is no "Sale" text label, icon, or other non-color signal. Same pattern on the checkout
+  form, where required fields are marked only with a red asterisk-colored label (color, no text like
+  "required"). Representative pattern (illustrative markup, not scraped source):</p>
+  <pre><code>&lt;span class="price-original" style="text-decoration:line-through"&gt;$89.00&lt;/span&gt;
+&lt;span class="price-sale" style="color:#d32f2f"&gt;$62.00&lt;/span&gt;</code></pre>
+  <p><strong>Why it matters.</strong> A colorblind user (roughly 1 in 12 men, per WebAIM's published prevalence
+  estimate for color-vision deficiency) or a screen-reader user gets no signal that anything is on
+  sale, or that a field is required, until the form rejects their submission. This is a judgment-based
+  finding, not a parse-based one — the markup is technically valid HTML, so a scanner sees two
+  <code>&lt;span&gt;</code> elements with no error, not a missing-information problem.</p>
+  <p><strong>How to verify.</strong> Not reliably automatable. Manual check: view the page in grayscale (browser
+  DevTools → Rendering → Emulate vision deficiencies, or a grayscale filter) and confirm every
+  meaningful distinction still reads without color.</p>
+  <p><strong>Fix direction.</strong> Add a text or icon signal alongside color: a "Sale" badge, a "(required)"
+  suffix on the label text itself (not just a red asterisk glyph).</p>
+
+  <h3 id="f04">F-04 🟠 Custom filter/sort control not operable by keyboard
+    <span class="sc">WCAG 2.1.1 Keyboard (A) · 4.1.2 Name, Role, Value (A)</span></h3>
+  <p><strong>The pattern.</strong> The category filter sidebar is built from <code>&lt;div&gt;</code> elements with
+  <code>onclick</code> handlers and no <code>tabindex</code>, <code>role</code>, or keyboard event handling (illustrative
+  markup, not scraped source):</p>
+  <pre><code>&lt;div class="filter-option" onclick="toggleFilter('waterproof')"&gt;Waterproof&lt;/div&gt;</code></pre>
+  <p><strong>Why it matters.</strong> A mouse-only interaction pattern like this is invisible to a keyboard-only
+  user — <code>Tab</code> skips right over it, because a plain <code>&lt;div&gt;</code> is not in the focus order by default
+  and has no role announcing it as an interactive control even if it were reachable. There is no
+  visible error; the control simply does not exist for that user.</p>
+  <p><strong>How to verify.</strong> Manual only — this is the class of defect a static-markup scanner is
+  structurally unable to catch, because "does this thing respond correctly to a keystroke" requires
+  actually pressing the key. Method: unplug the mouse (or just don't touch it) and <code>Tab</code> through the
+  entire page; anything you cannot reach or activate with <code>Tab</code> + <code>Enter</code>/<code>Space</code> is a finding.</p>
+  <p><strong>Fix direction.</strong> Either use a real <code>&lt;button&gt;</code>/<code>&lt;input type="checkbox"&gt;</code> (free keyboard
+  support, free semantics), or if a custom widget is required, add <code>tabindex="0"</code>,
+  <code>role="checkbox"</code> (or appropriate role) with <code>aria-checked</code>, and both <code>keydown</code>
+  (Enter/Space) and <code>click</code> handlers.</p>
+
+  <h3 id="f05">F-05 🔴 "Quick view" modal is a keyboard/focus trap
+    <span class="sc">WCAG 2.1.2 No Keyboard Trap (A) · 2.4.3 Focus Order (A)</span></h3>
+  <p><strong>The pattern.</strong> The product grid's "Quick View" modal opens on click, but (a) the trigger
+  itself is a <code>&lt;div&gt;</code> with no keyboard handler (compounding F-04's pattern), and (b) once opened by
+  mouse, focus is never programmatically moved into the modal, <code>Escape</code> does not close it, and
+  background page elements remain in the tab order behind the overlay.</p>
+  <p><strong>Why it matters.</strong> A keyboard user who does manage to trigger the modal (e.g., via a screen
+  reader's own activation method) can end up tabbing through background page content hidden behind a
+  visible overlay, with no way to close it via keyboard — functionally stranded on the page. This is
+  the single worst outcome in this snapshot because it can block the user from reaching checkout at
+  all, not just make one feature harder.</p>
+  <p><strong>How to verify.</strong> Manual only. Method: open the modal, then press <code>Tab</code> repeatedly and watch
+  where focus goes (does it stay inside the modal, or wander into hidden background content); press
+  <code>Escape</code> and confirm the modal closes and focus returns to the trigger element.</p>
+  <p><strong>Fix direction.</strong> On open: move focus to the modal (typically its heading or first focusable
+  element) and constrain <code>Tab</code>/<code>Shift+Tab</code> to loop within it (a "focus trap" in the <em>good</em>
+  sense — trap focus inside intentionally, not accidentally). Bind <code>Escape</code> to close and return
+  focus to the trigger. Consider the native <code>&lt;dialog&gt;</code> element, which handles most of this
+  natively in current browsers.</p>
+
+  <h3 id="f06">F-06 🟡 No skip-navigation link
+    <span class="sc">WCAG 2.4.1 Bypass Blocks (A)</span></h3>
+  <p><strong>The pattern.</strong> Every page repeats the same header/nav/promo-banner block before reaching
+  page-specific content, and there is no "Skip to main content" link as the first focusable element.</p>
+  <p><strong>Why it matters.</strong> A keyboard or screen-reader user must tab through the same ~15–20 links on
+  every single page load before reaching anything page-specific — a real, cumulative time cost that a
+  sighted mouse user never pays.</p>
+  <p><strong>How to verify.</strong> Manual: load any page fresh and press <code>Tab</code> once. The first stop should be
+  a (possibly visually hidden until focused) "Skip to main content" link. If the first stop is a logo
+  or nav item instead, this is a finding. Some automated tools offer a heuristic check for this
+  pattern but it is unreliable enough that we treat it as manual-only in this methodology.</p>
+  <p><strong>Fix direction.</strong> Add a skip link as the very first focusable element in the DOM, targeting
+  the main content region (<code>&lt;a href="#main-content" class="skip-link"&gt;Skip to main
+  content&lt;/a&gt;</code>), visually hidden by default and shown on focus.</p>
+
+  <h3 id="f07">F-07 🔴 Checkout inputs use placeholder text as the only label
+    <span class="sc">WCAG 1.3.1 Info and Relationships (A) · 3.3.2 Labels or Instructions (A)</span></h3>
+  <p><strong>The pattern.</strong> The checkout form's shipping-address fields have no <code>&lt;label&gt;</code> element; the
+  field name appears only as placeholder text inside the input (illustrative markup, not scraped
+  source):</p>
+  <pre><code>&lt;input type="text" name="address1" placeholder="Street address" /&gt;
+&lt;input type="text" name="zip" placeholder="ZIP code" /&gt;</code></pre>
+  <p><strong>Why it matters.</strong> Placeholder text disappears the moment the user types, is not reliably
+  announced by every screen reader the way a real label is, and is not programmatically associated
+  with the field at all — a screen reader landing on this input may announce nothing more than "edit
+  text." On the page where the user is about to enter a shipping address and payment details, this is
+  the highest-stakes place in the whole site for a labeling gap to live.</p>
+  <p><strong>How to verify.</strong> Not reliably automatable — and that is the trap. axe-core <em>passes</em> this
+  markup: under the HTML accessibility-API name computation, a non-empty <code>placeholder</code> is counted
+  toward the input's accessible name, so the <code>label</code> rule reports no violation (Deque's own rule
+  documentation calls placeholder-as-name "not a recommended solution" — it satisfies the letter of
+  the automated check while leaving every problem above in place). Verify manually: inspect each
+  input for an associated <code>&lt;label&gt;</code>, <code>aria-label</code>, or <code>aria-labelledby</code>; then start typing in
+  the field and watch the only visible field name disappear.</p>
+  <p><strong>Fix direction.</strong> Add a real, visible <code>&lt;label for="address1"&gt;Street address&lt;/label&gt;</code> for
+  every field. Placeholder text can remain as a <em>supplementary</em> hint, never as the only label.</p>
+
+  <h3 id="f08">F-08 ⚪ Repeated non-descriptive link text
+    <span class="sc">WCAG 2.4.4 Link Purpose (In Context) (A)</span></h3>
+  <p><strong>The pattern.</strong> The blog/product-guide listing repeats "Read more" as the link text on every
+  card, with no distinguishing accessible name (illustrative markup, not scraped source):</p>
+  <pre><code>&lt;a href="/guides/waterproofing"&gt;Read more&lt;/a&gt;
+&lt;a href="/guides/layering"&gt;Read more&lt;/a&gt;</code></pre>
+  <p><strong>Why it matters.</strong> A screen-reader user who pulls up a "list of links" for the page (a common
+  navigation shortcut) sees "Read more, Read more, Read more" with no way to tell them apart out of
+  context — even though each link is individually valid HTML.</p>
+  <p><strong>How to verify.</strong> Manual/semantic judgment — axe-core's <code>link-name</code> rule catches <em>empty</em>
+  links (no text at all), but a link that has <em>some</em> text, just not distinguishing text, requires a
+  human reading the list of link names in context to notice the pattern.</p>
+  <p><strong>Fix direction.</strong> Make the accessible name distinguishing without necessarily changing the
+  visible design: visually-hidden text inside the link (<code>Read more &lt;span class="sr-only"&gt;about
+  waterproofing your jacket&lt;/span&gt;</code>), or <code>aria-label</code> on the anchor.</p>
+
+  <h3 id="f09">F-09 🟡 Icon-button touch targets below minimum size
+    <span class="sc">WCAG 2.5.8 Target Size (Minimum) (AA)</span></h3>
+  <p><strong>The pattern.</strong> The size-selector swatches and modal close icon measure roughly 16×16 CSS
+  pixels with no surrounding spacing, below the 24×24 CSS px minimum (with limited exceptions this
+  pattern does not qualify for).</p>
+  <p><strong>Why it matters.</strong> Users with limited fine motor control, or anyone on a touchscreen,
+  frequently mis-tap adjacent controls — on a size-selector row this can silently select the wrong
+  size.</p>
+  <p><strong>How to verify.</strong> Hybrid: axe-core ships a <code>target-size</code> rule tagged WCAG 2.2 Level AA
+  (<code>wcag22aa</code>/<code>wcag258</code>), but it is disabled by default (<code>enabled: false</code> in the rule
+  definition) — it runs only if explicitly enabled or when running the <code>wcag22aa</code> tag set. Confirm
+  with a manual measurement in DevTools (inspect the rendered box size, including padding). axe rates
+  violations of this rule <em>serious</em>; we keep it Moderate in this snapshot — mis-taps are
+  recoverable, unlike the Critical task-blockers above (a deliberate, noted departure per §3).</p>
+  <p><strong>Fix direction.</strong> Increase the tappable area to at least 24×24 CSS px (padding counts), or add
+  adequate spacing between adjacent small targets so accidental-adjacent-tap misses don't trigger the
+  wrong action.</p>
+
+  <h3 id="f10">F-10 ⚪ Missing page-language declaration
+    <span class="sc">WCAG 3.1.1 Language of Page (A)</span></h3>
+  <p><strong>The pattern.</strong> The document's <code>&lt;html&gt;</code> element has no <code>lang</code> attribute (illustrative
+  markup, not scraped source):</p>
+  <pre><code>&lt;html&gt;
+  &lt;head&gt;...</code></pre>
+  <p><strong>Why it matters.</strong> Without a declared language, a screen reader falls back to its default
+  voice/pronunciation rules regardless of the page's actual language, producing mispronounced or
+  hard-to-understand speech output for every single page.</p>
+  <p><strong>How to verify.</strong> axe-core / WAVE both flag this automatically and immediately — rule ID
+  <code>html-has-lang</code> — one of the simplest, cheapest-to-fix findings in this snapshot. (axe's own
+  default rating for this violation is <em>serious</em>; we rate it Minor here because on a
+  single-language English storefront the practical effect is degraded pronunciation rather than task
+  failure — a deliberate, noted departure per §3. The one-line fix is the same either way.)</p>
+  <p><strong>Fix direction.</strong> <code>&lt;html lang="en"&gt;</code> (or the appropriate BCP 47 code). One-line fix, zero
+  design impact.</p>
+
+  <h2 id="roadmap">6. Fix roadmap</h2>
+  <p><strong>This week (Critical).</strong></p>
+  <ul>
+    <li>Add accessible names to icon-only controls, starting with "add to cart" (F-01).</li>
+    <li>Add real <code>&lt;label&gt;</code> elements to every checkout input (F-07).</li>
+    <li>Fix the quick-view modal's focus handling and <code>Escape</code>-to-close (F-05).</li>
+  </ul>
+  <p><strong>This sprint (Serious).</strong></p>
+  <ul>
+    <li>Raise text/link contrast to the 4.5:1 minimum (F-02).</li>
+    <li>Make the filter/sort sidebar keyboard-operable (F-04).</li>
+  </ul>
+  <p><strong>Ongoing (Moderate/Minor).</strong></p>
+  <ul>
+    <li>Add non-color signals for sale price and required fields (F-03).</li>
+    <li>Add a skip-navigation link (F-06).</li>
+    <li>Differentiate repeated link text (F-08).</li>
+    <li>Increase small touch targets to 24×24 CSS px (F-09).</li>
+    <li>Declare the page language (F-10).</li>
+  </ul>
+  <p><strong>Retest.</strong> As with our security-audit work, one verification pass after fixes land confirms
+  each item is actually closed — re-running the same automated rule and repeating the same manual
+  walkthrough step described in each finding above, not just trusting that the code changed.</p>
+
+  <h2 id="reproduce">7. How to reproduce these checks on your own site (15 minutes, free)</h2>
+  <p>This is deliberately not proprietary — anyone can run this today with no purchase:</p>
+  <ol>
+    <li>Install the <a href="https://www.deque.com/axe/devtools/" rel="noopener">axe DevTools browser extension</a>
+    (free tier) or use <a href="https://wave.webaim.org/" rel="noopener">WAVE</a>. Run it on your homepage, one
+    listing/grid page, and your checkout/contact form.</li>
+    <li>Unplug your mouse (or just don't touch it). Starting from a fresh page load, press <code>Tab</code>
+    repeatedly. Note: (a) whether the first stop is a skip link, (b) whether every
+    interactive-looking element on the page actually receives focus, (c) whether you can ever get
+    stuck unable to <code>Tab</code> further or close something.</li>
+    <li>Turn on your OS's built-in screen reader (VoiceOver on macOS: <code>Cmd+F5</code>; Narrator on
+    Windows: <code>Ctrl+Win+Enter</code>) for five minutes on your product/checkout page and just listen.</li>
+    <li>View the page with a grayscale filter (Chrome DevTools → Rendering tab → "Emulate vision
+    deficiencies") and check whether anything meaningful is conveyed by color alone.</li>
+  </ol>
+  <p>That sequence — automated scan, keyboard walkthrough, five minutes of screen reader, one
+  grayscale pass — is most of the manual half of this methodology. It will not find everything a full
+  review does (business-logic-aware findings like F-05's modal-trap or F-04's custom-widget gap take
+  longer to spot systematically across a whole app), but it will surface a meaningful fraction of
+  what's above in under an hour, for free. We say this openly because the honest version of this
+  offer is "we do this more thoroughly and more consistently than you have time to," not "we have
+  access to something you don't."</p>
+
+  <h2 id="scope">8. Scope, methodology &amp; limitations</h2>
+  <p><strong>What this is.</strong> A static, source/markup-level accessibility findings snapshot, following the
+  same manual-primary / automated-supported methodology as our
+  <a href="https://duebench.com/#services">Code Trust Audit</a> security reviews, adapted with WCAG 2.2
+  success criteria in place of CVSS/OWASP/CWE, and axe-core's impact vocabulary
+  (<code>minor</code>/<code>moderate</code>/<code>serious</code>/<code>critical</code>) in place of a proprietary severity scale
+  (departures from axe's own per-rule defaults are noted inline — §3). "Findings" in this document's
+  title means <em>technically verifiable observations</em> — reproducible, dated, rule-level checks —
+  deliberately not "evidence", because nothing here is evidence in any legal sense.</p>
+  <p><strong>What this is not:</strong></p>
+  <ul>
+    <li><strong>Not legal advice.</strong> Whether any gap here (or on a real site) creates legal exposure under
+    the ADA, state law, or elsewhere depends on jurisdiction, the specific facts, and case law that
+    changes over time. That determination requires a lawyer, not a code-review vendor, and we say so
+    in every engagement.</li>
+    <li><strong>Not a compliance certification.</strong> No document — ours or anyone's — can certify that a
+    website is "ADA compliant" or fully conforms to WCAG, because conformance is continuous (any
+    future content change can reintroduce a gap) and because the legal standard for private-sector
+    websites in the US is unsettled and enforced through case-by-case litigation and settlements
+    rather than a single codified technical rule. (For contrast: DOJ's 2024 Title II rule <em>does</em>
+    set a specific WCAG 2.1 AA technical standard, but only for state and local government websites,
+    on a phased timeline — compliance deadlines were extended by one year by a DOJ interim final rule
+    in April 2026. That rule does not apply to a private retailer like this specimen. Verified
+    against ada.gov and the Federal Register IFR, 2026-07-14.)</li>
+    <li><strong>No litigation-protection claim, ever.</strong> We do not say, imply, or allow a client to believe
+    that fixing these items "protects" them from a demand letter or lawsuit. The FTC's January 2025
+    settlement with accessiBe (finalized April 2025) required a $1,000,000 payment over claims that
+    its automated widget could make any website WCAG-compliant and keep it compliant over time, plus
+    deceptively formatted third-party reviews. If even the narrower "makes you compliant" claim is
+    actionable when unsubstantiated, a "protects you from lawsuits" claim is a line we will never go
+    near — under this brand or any other — and this document is written to make that mistake
+    structurally hard to make.</li>
+    <li><strong>Not a scan of a real live system.</strong> Nothing here was scraped, scanned, or otherwise
+    obtained from any real company's site. Every markup snippet is written for this document to
+    illustrate a common, well-documented pattern.</li>
+    <li><strong>Not a claim about litigation frequency, industry statistics, or third-party
+    endorsement.</strong> Any such figures, if added later, must be sourced and dated, not asserted from
+    memory.</li>
+  </ul>
+  <p><strong>Confidentiality note.</strong> This entire document concerns a fictional specimen. A real client
+  engagement is confidential, exactly like our security-audit work — this document does not change
+  that policy, it just doesn't implicate it, since there is no real client here.</p>
+
+  <h2 id="pricing-note">9. Is this a service you can buy?</h2>
+  <p>Not as a separately priced product — deliberately. Our existing
+  <a href="https://duebench.com/#pricing">Code Trust Audit tiers</a> already describe a scope/turnaround
+  structure that an ADA/WCAG snapshot could slot into as an added chapter or a parallel
+  spot-check-style review, but we have not set a standalone price for this deliverable, because we
+  won't package something before we've seen real demand for its exact shape. If this is something
+  your team wants, <a href="mailto:hello@duebench.com?subject=ADA%2FWCAG%20findings%20snapshot">tell us
+  what you'd need</a> — that signal is what turns this from a sample into a service.</p>
+</main>
+<footer class="site">
+  <p><strong>DueBench</strong> — verified lead lists and plain-English code reviews. Every claim we deliver
+  comes with its proof attached. <a href="https://duebench.com/">duebench.com</a> ·
+  <a href="mailto:hello@duebench.com">hello@duebench.com</a></p>
+  <p style="margin-top:8px">This page describes a fictional specimen and is a methodology
+  demonstration, not legal advice and not a compliance certification.</p>
+</footer>
+</body>
+</html>
