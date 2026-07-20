@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- V5-B 专属页 for HelloInbox (token 492d20fa613bd326091258f4) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Verified snapshot for HelloInbox — DueBench</title>
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAF8F2" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F151E" />
+  <style>
+    :root {
+      --bg: #FAF8F2; --fg: #1A1F27; --muted: #5A6472; --card: #FFFFFF;
+      --line: #E7E2D6; --accent: #1F6FEB; --warn: #B4530A; --ok: #1E7E4F;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0F151E; --fg: #E8EAED; --muted: #9AA4B2; --card: #161D28;
+              --line: #26303C; --accent: #5B9BFF; --warn: #E0842E; --ok: #4FCB8A; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg);
+      font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 22px 80px; }
+    .brand { font-size: 14px; letter-spacing: .04em; color: var(--muted); text-transform: uppercase; }
+    .brand b { color: var(--fg); }
+    h1 { font-size: 30px; line-height: 1.25; margin: 14px 0 6px; }
+    .sub { color: var(--muted); margin: 0 0 8px; }
+    .meta { font-size: 13px; color: var(--muted); margin-bottom: 34px; }
+    .finding { background: var(--card); border: 1px solid var(--line);
+      border-radius: 12px; padding: 20px 22px; margin: 16px 0; }
+    .finding .tag { display: inline-block; font-size: 12px; font-weight: 600;
+      letter-spacing: .03em; text-transform: uppercase; color: var(--warn); margin-bottom: 8px; }
+    .finding h3 { margin: 0 0 8px; font-size: 19px; }
+    .finding p { margin: 0 0 12px; }
+    .evidence { font-size: 13px; color: var(--muted); border-top: 1px dashed var(--line);
+      padding-top: 10px; }
+    .evidence a { color: var(--accent); word-break: break-all; }
+    .full { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+      padding: 26px 24px; margin: 34px 0 8px; }
+    .full h2 { margin: 0 0 12px; font-size: 21px; }
+    .full ul { margin: 0 0 18px; padding-left: 20px; color: var(--muted); }
+    .full ul li { margin: 4px 0; }
+    .price { font-size: 34px; font-weight: 700; margin: 4px 0; }
+    .price small { font-size: 15px; font-weight: 400; color: var(--muted); }
+    .cta { display: inline-block; background: var(--accent); color: #fff; text-decoration: none;
+      font-weight: 600; font-size: 17px; padding: 14px 30px; border-radius: 10px; margin: 8px 0 4px; }
+    .terms { font-size: 13px; color: var(--muted); margin-top: 14px; }
+    .terms b { color: var(--fg); }
+    .noask { background: color-mix(in srgb, var(--ok) 12%, transparent);
+      border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px;
+      font-size: 14px; margin: 22px 0; }
+    footer { margin-top: 42px; font-size: 13px; color: var(--muted); }
+    footer a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand"><b>DueBench</b> — We show our work.</div>
+    <h1>A verified snapshot for HelloInbox</h1>
+    <p class="sub">Three public signals we checked by hand — each with its source and check date attached.</p>
+    <p class="meta">Prepared 2026-07-19 · All findings drawn only from your public pages. No account, login, or form was created or submitted.</p>
+
+        <div class="finding">
+      <span class="tag">Trust</span>
+      <h3>Your "Trusted by 7,000+" logo row is one company's logo, six times</h3>
+      <p>The social-proof strip under your hero renders six logo slots, and all six point to the same file: <b>salesloft.png</b>. We checked the live DOM rather than a screenshot: every image is loaded (not a lazy-load placeholder) and every src is identical. For a first-time visitor the strip reads as filler, and for anyone who opens dev tools it reads worse. One real customer row, or none, would do more for the "7,000+ businesses" claim than this.</p>
+      <div class="evidence">Source: <a href="https://www.helloinbox.email/">helloinbox.email</a> (hero social-proof strip) · Checked 2026-07-19 · Method: inspected the rendered DOM; all six img srcs are /build/images/brands/salesloft.png, loaded and identical</div>
+    </div>
+
+    <div class="finding">
+      <span class="tag">Trust</span>
+      <h3>All 19 reviews are for your consulting, none for the product</h3>
+      <p>Your reviews section is honest about it ("From our consulting clients") and the reviews themselves are strong. But every one of the 19 is about working with Hans directly, about half are attributed to an anonymous "Upwork Client", and none mentions using HelloInbox the product. A visitor deciding whether to trust the SaaS with their sending domain sees zero evidence anyone uses the SaaS. Even two or three named quotes from product users, placed first, would change how the page converts.</p>
+      <div class="evidence">Source: <a href="https://www.helloinbox.email/#reviews">helloinbox.email/#reviews</a> · Checked 2026-07-19 · Method: counted and read all testimonials in the reviews section as a first-time visitor</div>
+    </div>
+
+    <div class="finding">
+      <span class="tag">Conversion</span>
+      <h3>Your "Book Intro Call" link goes to a Calendly that matches neither your brand nor your name</h3>
+      <p>The secondary CTA in your hero links to calendly.com/<b>ismaelyws</b>. Your brand is HelloInbox and your public expert identity is Hans Desjarlais; the booking page name matches neither. Someone about to book a call about protecting their sender reputation gets a moment of "is this the right link?" friction at exactly the wrong time. A Calendly at /helloinbox or /hansdesjarlais (or booking on your own domain) removes it.</p>
+      <div class="evidence">Source: <a href="https://www.helloinbox.email/">helloinbox.email</a> (hero secondary CTA href) · Checked 2026-07-19 · Method: followed the Book Intro Call link target from the rendered page</div>
+    </div>
+
+    <div class="full">
+      <h2>The full snapshot</h2>
+      <ul>
+        <li>10–15 hand-verified public findings across function, growth/conversion, and trust/compliance</li>
+        <li>Every finding with its source URL, check date, and method — same standard as the three above</li>
+        <li>Ranked by priority, so you know what to fix first</li>
+        <li>Downloadable report, delivered within 2 business days</li>
+        <li>One free re-scan after you ship fixes</li>
+      </ul>
+      <div class="price">$49 <small>· one-time · no subscription</small></div>
+      <a class="cta" href="https://prayerful671.gumroad.com/l/verified-snapshot?wanted=true">Get the full snapshot →</a>
+      <div class="noask">No call, no reply, no meeting needed — click, pay, and the report comes to your inbox.</div>
+      <p class="terms"><b>Terms:</b> Findings drawn only from public pages (no login/payment/form testing, no vulnerability or port scanning). We report observed public signals, not legal or security conclusions. <b>Refund/re-scan:</b> full refund if the report doesn't give you at least 5 findings worth acting on; one free re-scan after you ship fixes.</p>
+    </div>
+
+    <footer>
+      DueBench · <a href="https://duebench.com/">duebench.com</a> · Questions? <a href="mailto:hello@duebench.com">hello@duebench.com</a>
+    </footer>
+  </div>
+</body>
+</html>
